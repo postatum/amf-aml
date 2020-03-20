@@ -156,7 +156,7 @@ class DialectsRegistry extends AMFDomainEntityResolver with PlatformSecrets {
 
   def registerDialect(uri: String, environment: Environment = Environment()): Future[Dialect] = {
     map.get(uri) match {
-      case Some(dialect) => Future { dialect }
+      case Some(dialect) => Future.successful(dialect)
       case _ =>
         val context = new CompilerContextBuilder(uri, platform, UnhandledParserErrorHandler).withEnvironment(environment).build()
         RuntimeCompiler.forContext(context,
